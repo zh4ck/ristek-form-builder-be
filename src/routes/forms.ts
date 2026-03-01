@@ -75,6 +75,9 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
                 isPublished: true,
                 createdAt: true,
                 updatedAt: true,
+                _count: {
+                    select: { submissions: true },
+                },
             },
         });
 
@@ -216,6 +219,56 @@ router.put('/:id', async (req: Request, res: Response): Promise<void> => {
     } catch (error) {
         console.error('Error updating form:', error);
         res.status(500).json({ error: 'Failed to update form' });
+    }
+});
+
+// POST /api/forms/:id/duplicate - Deep-copy a form as a new unpublished draft
+router.post('/:id/duplicate', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = (req.user as any).userId;
+        const formId = req.params.id as string;
+
+        // Fetch the source form with all nested data
+        const source = await prisma.form.findFirst({
+            where: { id: formId, creatorId: userId },
+            include: {
+                questions: {
+                    orderBy: { orderIndex: 'asc' },
+                    include: { options: true },
+                },
+            },
+        });
+
+        if (!source) {
+            res.status(404).json({ error: 'Form not found or unauthorized' });
+            return;
+        }
+
+        // Create the duplicated form
+        const duplicate = await prisma.form.create({
+            data: {
+                title: `Copy of ${source.title}`,
+                description: source.description,
+                isPublished: false,
+                creatorId: userId,
+                questions: {
+                    create: source.questions.map((q) => ({
+                        text: q.text,
+                        type: q.type,
+                        isRequired: q.isRequired,
+                        orderIndex: q.orderIndex,
+                        options: {
+                            create: q.options.map((opt) => ({ text: opt.text })),
+                        },
+                    })),
+                },
+            },
+        });
+
+        res.status(201).json(duplicate);
+    } catch (error) {
+        console.error('Error duplicating form:', error);
+        res.status(500).json({ error: 'Failed to duplicate form' });
     }
 });
 
