@@ -2,6 +2,9 @@
 
 A modern, full-stack Form Builder application with a drag-and-drop editor, autosave, real-time analytics, and a responsive respondent view.
 
+## ⚓ Deployed
+Deployed on ristek-form-builder-fe.vercel.app
+
 ## 🚀 Features
 
 - **Drag-and-Drop Editor**: Build complex forms with multiple question types (Short Answer, Multiple Choice, Checkbox, Dropdown).
