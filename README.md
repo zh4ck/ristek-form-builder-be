@@ -27,7 +27,7 @@ Deployed on [Vercel](https://ristek-form-builder-fe.vercel.app)
 
 1.  **Navigate to the root directory**:
     ```bash
-    cd "RISTEK Web Dev Form Builder"
+    cd ..
     ```
 
 2.  **Install dependencies**:
@@ -40,7 +40,7 @@ Deployed on [Vercel](https://ristek-form-builder-fe.vercel.app)
     ```env
     DATABASE_URL="postgresql://user:password@host/dbname?sslmode=require&schema=public"
     JWT_SECRET="your_secret_key"
-    PORT=5000
+    PORT=8080
     ```
 
 4.  **Initialize Database**:
@@ -53,8 +53,8 @@ Deployed on [Vercel](https://ristek-form-builder-fe.vercel.app)
     ```bash
     npm run dev
     ```
-    The backend will be running at `http://localhost:5000`.
-    Swagger docs are available at `http://localhost:5000/api-docs`.
+    The backend will be running at `http://localhost:8080`.
+    Swagger docs are available at `http://localhost:8080/api-docs`.
 
 ### 2. Frontend Setup
 
@@ -71,7 +71,7 @@ Deployed on [Vercel](https://ristek-form-builder-fe.vercel.app)
 3.  **Configure environment variables**:
     Create a `.env.local` file in the `frontend` directory:
     ```env
-    NEXT_PUBLIC_API_URL="http://localhost:5000"
+    NEXT_PUBLIC_API_URL="http://localhost:8080"
     ```
 
 4.  **Start the development server**:
