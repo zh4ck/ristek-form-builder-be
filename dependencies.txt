@@ -1,0 +1,48 @@
+# Backend Dependencies
+@prisma/adapter-pg
+@prisma/client
+bcryptjs
+cors
+dotenv
+express
+jsonwebtoken
+pg
+swagger-jsdoc
+swagger-ui-express
+
+# Backend Dev Dependencies
+@types/bcryptjs
+@types/cors
+@types/express
+@types/jsonwebtoken
+@types/node
+@types/pg
+@types/swagger-jsdoc
+@types/swagger-ui-express
+nodemon
+prisma
+ts-node
+typescript
+
+# Frontend Dependencies
+@dnd-kit/core
+@dnd-kit/sortable
+@dnd-kit/utilities
+@hookform/resolvers
+lucide-react
+next
+react
+react-dom
+react-hook-form
+recharts
+zod
+
+# Frontend Dev Dependencies
+@tailwindcss/postcss
+@types/node
+@types/react
+@types/react-dom
+eslint
+eslint-config-next
+tailwindcss
+typescript

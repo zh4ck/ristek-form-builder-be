@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  name     String
+  forms    Form[]
+}
+
+model Form {
+  id          String       @id @default(uuid())
+  title       String
+  description String?
+  creatorId   String
+  creator     User         @relation(fields: [creatorId], references: [id])
+  isPublished Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  questions   Question[]
+  submissions Submission[]
+}
+
+enum QuestionType {
+  SHORT_ANSWER
+  MULTIPLE_CHOICE
+  CHECKBOX
+  DROPDOWN
+}
+
+model Question {
+  id         String       @id @default(uuid())
+  formId     String
+  form       Form         @relation(fields: [formId], references: [id], onDelete: Cascade)
+  text       String
+  type       QuestionType
+  isRequired Boolean      @default(false)
+  orderIndex Int
+  
+  options    Option[]
+  answers    Answer[]
+}
+
+model Option {
+  id         String   @id @default(uuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  text       String
+}
+
+model Submission {
+  id          String   @id @default(uuid())
+  formId      String
+  form        Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+  submittedAt DateTime @default(now())
+  
+  answers     Answer[]
+}
+
+model Answer {
+  id           String     @id @default(uuid())
+  submissionId String
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  questionId   String
+  question     Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  value        String     // Can store short answer text, or the selected option's value
+}
