@@ -3,7 +3,7 @@
 A modern, full-stack Form Builder application with a drag-and-drop editor, autosave, real-time analytics, and a responsive respondent view.
 
 ## ⚓ Deployed
-Deployed on ristek-form-builder-fe.vercel.app
+Deployed on [Vercel](https://ristek-form-builder-fe.vercel.app)
 
 ## 🚀 Features
 
